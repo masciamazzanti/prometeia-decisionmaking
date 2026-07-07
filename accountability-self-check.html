@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Accountability Self-Check · Prometeia × Talent Garden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1e1e1e;
+    --ink-soft: #444a52;
+    --muted: #878d95;
+    --paper: #f2f3f6;
+    --card: #ffffff;
+    --line: #e5e7ec;
+    --line-strong: #ccd1d9;
+    --tint: #eef2f7;
+
+    --blue: #14385c;
+    --blue-dark: #0e2942;
+    --blue-soft: #e7edf3;
+    --coral: #ee7660;
+    --coral-dark: #ea6a54;
+
+    --a: #14385c;  /* Step Back    (blue) */
+    --b: #ee7660;  /* Do the Minimum (coral) */
+    --c: #2f8f7f;  /* Take Ownership (teal) */
+    --d: #b8892b;  /* Hold Off     (gold) */
+
+    --shadow: 0 1px 2px rgba(20,32,46,.05), 0 18px 44px rgba(20,32,46,.09);
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    background: radial-gradient(1200px 500px at 15% -10%, #e9edf3 0%, rgba(233,237,243,0) 60%), var(--paper);
+    color: var(--ink);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.5; -webkit-font-smoothing: antialiased;
+    min-height: 100vh; display: flex; align-items: flex-start; justify-content: center;
+    padding: clamp(16px, 4vw, 56px) 16px;
+  }
+  .stage { width: 100%; max-width: 660px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+
+  .brandbar { display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(22px, 5vw, 44px); border-bottom: 1px solid var(--line); gap: 16px; }
+  .wordmark { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 20px; letter-spacing: .005em; color: var(--blue); line-height: 1; }
+  .wordmark .dot { color: var(--coral); }
+  .brandbar .right { display: flex; align-items: center; gap: 10px; }
+  .brandbar .with { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .brandbar img.tag { width: 34px; height: 36px; display: block; }
+  .brandfoot { padding: 14px clamp(22px, 5vw, 44px); border-top: 1px solid var(--line); font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .06em; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--coral); font-weight: 500; }
+  h1 { font-family: "Poppins", sans-serif; font-weight: 600; font-size: clamp(30px, 6vw, 46px); line-height: 1.05; letter-spacing: -0.015em; margin: 14px 0 0; color: var(--ink); }
+  .lede { color: var(--ink-soft); font-size: 16px; margin: 18px 0 0; max-width: 47ch; }
+  .fine { color: var(--muted); font-size: 13.5px; margin: 14px 0 0; }
+
+  .btn { font-family: "Poppins", sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; border: 1px solid var(--blue); background: var(--blue); color: #fff; padding: 12px 24px; border-radius: 10px; transition: transform .12s ease, background .12s ease, opacity .12s ease; }
+  .btn:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: .35; cursor: not-allowed; }
+  .btn-ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line-strong); }
+  .btn-ghost:hover { background: var(--tint); }
+  :focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; border-radius: 8px; }
+
+  .intro { padding: clamp(28px, 6vw, 46px); }
+  .intro .rule { height: 1px; background: var(--line); margin: 26px 0; }
+  .meta-row { display: flex; gap: 24px; flex-wrap: wrap; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--muted); }
+  .meta-row b { color: var(--ink); font-weight: 600; }
+  .intro-actions { margin-top: 30px; }
+
+  .quiz { padding: clamp(22px, 5vw, 40px); }
+  .qhead { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .counter { font-family: "IBM Plex Mono", monospace; font-size: 13px; letter-spacing: .08em; color: var(--muted); }
+  .counter b { color: var(--blue); font-weight: 600; }
+  .track { height: 3px; background: var(--line); border-radius: 3px; overflow: hidden; flex: 1; max-width: 240px; }
+  .track > i { display: block; height: 100%; background: var(--coral); width: 0%; transition: width .35s cubic-bezier(.22,.61,.36,1); }
+
+  .qtext { font-family: "Poppins", sans-serif; font-weight: 500; font-size: clamp(20px, 3.4vw, 25px); line-height: 1.3; letter-spacing: -0.01em; margin: 24px 0 22px; color: var(--ink); }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt { display: flex; align-items: flex-start; gap: 14px; text-align: left; font-family: "Inter", sans-serif; font-size: 15.5px; color: var(--ink-soft); background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; cursor: pointer; transition: border-color .12s ease, background .12s ease, color .12s ease; }
+  .opt:hover { border-color: var(--line-strong); background: var(--tint); }
+  .opt .lt { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 7px; background: var(--tint); color: var(--blue); font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 13px; display: flex; align-items: center; justify-content: center; transition: background .12s ease, color .12s ease; margin-top: 1px; }
+  .opt .ot { flex: 1 1 auto; padding-top: 2px; }
+  .opt[aria-pressed="true"] { border-color: var(--blue); background: var(--blue-soft); color: var(--ink); }
+  .opt[aria-pressed="true"] .lt { background: var(--blue); color: #fff; }
+
+  .qnav { display: flex; align-items: center; justify-content: space-between; margin-top: 26px; gap: 12px; }
+  .fade-enter { animation: fade .28s ease both; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .result { padding: clamp(24px, 5vw, 44px); }
+  .result h2 { font-family: "Poppins", sans-serif; font-weight: 600; font-size: clamp(25px, 5vw, 34px); line-height: 1.12; margin: 10px 0 0; letter-spacing: -0.015em; }
+  .dominant { margin-top: 20px; padding: 20px; border: 1px solid var(--line); border-left-width: 4px; border-radius: 12px; background: var(--tint); }
+  .dominant .tag { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .dominant .name { font-family: "Poppins", sans-serif; font-size: 25px; font-weight: 600; margin: 5px 0 7px; }
+  .dominant .desc { color: var(--ink-soft); font-size: 15px; margin: 0; }
+
+  .spectrum-wrap { margin: 30px 0 8px; }
+  .spectrum-label { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .spectrum { display: flex; width: 100%; height: 48px; border-radius: 11px; overflow: hidden; background: var(--line); border: 1px solid var(--line); }
+  .spectrum > span { display: flex; align-items: center; justify-content: center; color: #fff; font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; width: 0%; transition: width .8s cubic-bezier(.22,.61,.36,1); overflow: hidden; white-space: nowrap; }
+
+  .breakdown { margin-top: 24px; display: flex; flex-direction: column; gap: 16px; }
+  .brow { display: grid; grid-template-columns: 32px 1fr auto; gap: 13px; align-items: start; }
+  .chip { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 14px; color: #fff; }
+  .brow .who { min-width: 0; }
+  .brow .who .n { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 15px; color: var(--ink); }
+  .brow .who .d { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .brow .who .bar { height: 6px; border-radius: 4px; background: var(--line); margin-top: 9px; overflow: hidden; }
+  .brow .who .bar > i { display: block; height: 100%; width: 0%; border-radius: 4px; transition: width .8s cubic-bezier(.22,.61,.36,1); }
+  .brow .count { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 21px; color: var(--ink); line-height: 1; padding-top: 3px; }
+  .brow .count small { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+  .closing { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 15px; }
+  .closing .lead { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 18px; color: var(--ink); display: block; margin-bottom: 8px; }
+
+  .result-actions { margin-top: 26px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .copied { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--c); opacity: 0; transition: opacity .2s ease; }
+  .copied.show { opacity: 1; }
+
+  @media (max-width: 480px) { .meta-row { gap: 14px; } .qnav .btn, .qnav .btn-ghost { padding: 11px 16px; } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="card">
+
+      <div class="brandbar">
+        <div class="wordmark">prometeia<span class="dot">.</span></div>
+        <div class="right">
+          <span class="with">in collaboration with</span>
+          <img class="tag" alt="Talent Garden" src="data:image/png;base64,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" />
+        </div>
+      </div>
+
+      <!-- ============ INTRO ============ -->
+      <section id="intro" class="intro">
+        <div class="eyebrow">Field Mission&nbsp;#01 — Pre-work</div>
+        <h1>Accountability<br>Self-Check</h1>
+        <p class="lede">Thirty everyday work situations. For each one, choose what you would <em>actually</em> do — not what you think is expected. There are no right or wrong answers.</p>
+        <div class="rule"></div>
+        <div class="meta-row">
+          <span><b>30</b> situations</span>
+          <span><b>~8</b> minutes</span>
+          <span><b>Private</b> — nothing leaves this screen</span>
+        </div>
+        <p class="fine">At the end you'll see how your instincts spread across four ways of responding when something lands in your lap. Bring the result to the workshop — that's the whole point.</p>
+        <div class="intro-actions"><button class="btn" id="startBtn">Start</button></div>
+      </section>
+
+      <!-- ============ QUIZ ============ -->
+      <section id="quiz" class="quiz" hidden>
+        <div class="qhead">
+          <div class="counter"><b id="qNum">01</b> / 30</div>
+          <div class="track"><i id="progFill"></i></div>
+        </div>
+        <div id="qText" class="qtext"></div>
+        <div id="qOptions" class="options"></div>
+        <div class="qnav">
+          <button class="btn btn-ghost" id="backBtn" style="visibility:hidden">Back</button>
+          <button class="btn" id="nextBtn" disabled>Next</button>
+        </div>
+      </section>
+
+      <!-- ============ RESULT ============ -->
+      <section id="result" class="result" hidden>
+        <div class="eyebrow">Your result</div>
+        <h2>How you show up when something needs an owner</h2>
+
+        <div class="dominant" id="dominantBox">
+          <div class="tag" id="domTag">Your most frequent instinct</div>
+          <div class="name" id="domName"></div>
+          <p class="desc" id="domDesc"></p>
+        </div>
+
+        <div class="spectrum-wrap">
+          <div class="spectrum-label">Your response mix</div>
+          <div class="spectrum" id="spectrum"></div>
+        </div>
+
+        <div class="breakdown" id="breakdown"></div>
+
+        <div class="closing">
+          <span class="lead" id="ownLine"></span>
+          Accountability isn't a personality — it's the call you make in the grey zone between what's clearly yours and what's clearly not. This isn't a score; it's a mirror. These four are broad postures, not precise labels — notice which one you fall back on when you don't take the lead. That gap is where the workshop starts.
+        </div>
+
+        <div class="result-actions">
+          <button class="btn" id="copyBtn">Copy my result</button>
+          <button class="btn btn-ghost" id="restartBtn">Start over</button>
+          <span class="copied" id="copied">Copied to clipboard</span>
+        </div>
+      </section>
+
+      <div class="brandfoot">
+        <span>A Talent Garden learning program for Prometeia</span>
+        <span>Field Mission #01</span>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+
+  // Options kept in the original order [A, B, C, D].
+  var QUESTIONS = [
+    { t: "A client sends an urgent email. The colleague responsible is on vacation. You know exactly how to answer. What do you do?",
+      o: ["I wait for my colleague to return.","I forward the email to my manager.","I reply to the client and then inform my colleague.","It depends on the situation."] },
+    { t: "During a meeting you notice that a key number in the presentation is incorrect. Nobody else notices. What do you do?",
+      o: ["Say nothing.","Tell the presenter after the meeting.","Raise it immediately.","Wait to understand whether it creates problems."] },
+    { t: "A colleague forgets to complete a task that blocks your work. What do you do?",
+      o: ["Wait.","Remind them once.","Find a temporary solution while informing them.","Escalate immediately."] },
+    { t: "You notice that a recurring process creates unnecessary work every week. Nobody has complained. What do you do?",
+      o: ["Ignore it.","Mention it casually.","Propose an improvement.","Build a small solution yourself and share it."] },
+    { t: "A client asks for information that you don't have, but you know who can provide it. What do you do?",
+      o: ["Wait until someone else replies.","Forward the request to the right colleague.","Contact the colleague, collect the information and reply to the client.","Reply saying someone will get back to them."] },
+    { t: "You realize that your project may miss the deadline. What do you do?",
+      o: ["Hope to recover before anyone notices.","Inform your manager close to the deadline.","Communicate the risk early and propose possible solutions.","Wait to see how the situation evolves."] },
+    { t: "You notice a mistake in a document that has already been shared internally.",
+      o: ["Leave it as it is.","Correct it only if someone points it out.","Inform the team and send the corrected version.","Wait until the next revision."] },
+    { t: "You finish your work earlier than expected.",
+      o: ["Wait for the next assignment.","Take a break.","Ask whether someone needs support.","Leave early if possible."] },
+    { t: "Two colleagues are discussing a problem you already know how to solve.",
+      o: ["Stay out of the conversation.","Speak only if they ask you.","Offer your suggestion proactively.","Mention it later."] },
+    { t: "A recurring process creates unnecessary delays every week.",
+      o: ["Accept that \u201cthis is how things work.\u201d","Mention it informally.","Prepare an improvement proposal.","Wait until management notices."] },
+    { t: "A client complains about something that was not directly your mistake.",
+      o: ["Explain it wasn't your responsibility.","Redirect the complaint.","Take ownership of finding a solution.","Wait for the responsible colleague."] },
+    { t: "A meeting ends without clear next steps.",
+      o: ["Assume everyone knows what to do.","Wait for someone else to summarize.","Send a recap with actions and owners.","Do nothing."] },
+    { t: "You receive unclear instructions.",
+      o: ["Start working anyway.","Wait for clarification.","Ask questions until expectations are clear.","Guess what is expected."] },
+    { t: "A new colleague joins your team.",
+      o: ["Let them figure things out.","Answer questions if they ask.","Offer guidance and share useful tips.","Wait until your manager assigns you."] },
+    { t: "You discover a small issue that could become a bigger problem later.",
+      o: ["Ignore it.","Mention it casually.","Raise it early and suggest preventive action.","Wait until it becomes relevant."] },
+    { t: "A colleague asks for help while you're busy.",
+      o: ["Say no.","Tell them to ask someone else.","Agree on a realistic time to help.","Ignore the request."] },
+    { t: "You notice that responsibilities between teams are unclear.",
+      o: ["Continue with your own work.","Ask your manager what to do.","Organize a conversation to clarify responsibilities.","Wait for someone else to solve it."] },
+    { t: "A customer gives positive feedback about your work.",
+      o: ["Read it and move on.","Share it only with your manager.","Share the learning with the whole team.","Keep it for yourself."] },
+    { t: "You make a mistake.",
+      o: ["Hope nobody notices.","Explain why it happened.","Admit it quickly, fix it and explain what you'll do differently.","Wait until someone asks."] },
+    { t: "You realize another team is duplicating work.",
+      o: ["Ignore it.","Mention it casually.","Suggest coordination to avoid duplication.","Let them continue."] },
+    { t: "Your manager is unavailable and a quick decision is needed.",
+      o: ["Wait.","Ask another manager.","Decide within your authority and communicate your reasoning.","Delay the work."] },
+    { t: "A meeting finishes earlier than expected.",
+      o: ["Leave immediately.","Wait until everyone leaves.","Use the remaining time to clarify open points.","Stay silent."] },
+    { t: "Someone criticizes your work.",
+      o: ["Defend yourself.","Ignore the feedback.","Ask questions to understand and improve.","Feel frustrated but say nothing."] },
+    { t: "You identify a better way to organize your team's work.",
+      o: ["Keep using the current method.","Mention the idea informally.","Develop the idea and present it.","Wait for the annual review."] },
+    { t: "A colleague repeatedly misses deadlines.",
+      o: ["Adapt every time.","Complain privately.","Discuss the impact constructively and look for solutions together.","Escalate immediately."] },
+    { t: "A project succeeds beyond expectations.",
+      o: ["Move on to the next task.","Celebrate briefly.","Reflect on what made it successful and document the lessons learned.","Assume it was just luck."] },
+    { t: "A client asks for something outside the original scope.",
+      o: ["Say no immediately.","Forward the request.","Explore possible options before responding.","Wait for someone else."] },
+    { t: "You notice that important information isn't reaching everyone involved.",
+      o: ["Focus only on your part.","Assume someone else will communicate it.","Make sure the right people are informed.","Wait until someone asks."] },
+    { t: "Your team is facing an unexpected challenge.",
+      o: ["Wait for instructions.","Focus only on your assigned task.","Help coordinate efforts where needed.","Observe before acting."] },
+    { t: "Imagine someone describes your way of working after one year. Which sentence would you most like to be true?",
+      o: ["\u201cThey always do what they are asked.\u201d","\u201cThey are dependable and consistent.\u201d","\u201cThey solve problems before they become critical.\u201d","\u201cThey make everyone around them perform better.\u201d"] }
+  ];
+
+  // C = the ownership response (index 2)
+  var STYLES = [
+    { key: "A", name: "Step Back", color: "var(--a)", short: "Waits it out",
+      desc: "Your first instinct is to wait, stay out of it, or treat the situation as someone else's to handle." },
+    { key: "B", name: "Do the Minimum", color: "var(--b)", short: "Engages lightly",
+      desc: "You respond, but with the smallest move the moment allows — a quick mention, a hand-off, doing only what's asked." },
+    { key: "C", name: "Take Ownership", color: "var(--c)", short: "Acts and follows through",
+      desc: "You make the situation yours: you act, you communicate, and you see it through. This is the ownership move the workshop is built around." },
+    { key: "D", name: "Hold Off", color: "var(--d)", short: "Waits for the right moment",
+      desc: "You defer — waiting for more certainty, a better moment, or someone else to move first before you step in." }
+  ];
+  var COLORS = ["var(--a)", "var(--b)", "var(--c)", "var(--d)"];
+  var LETTERS = ["A", "B", "C", "D"];
+  var OWN = 2; // index of the ownership response (C)
+
+  var state = { i: 0, answers: new Array(QUESTIONS.length).fill(null) };
+  var el = function (id) { return document.getElementById(id); };
+  var intro = el("intro"), quiz = el("quiz"), result = el("result");
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function show(section) { [intro, quiz, result].forEach(function (s) { s.hidden = (s !== section); }); window.scrollTo(0, 0); }
+
+  function renderQuestion() {
+    var q = QUESTIONS[state.i];
+    el("qNum").textContent = pad(state.i + 1);
+    el("progFill").style.width = (state.i / QUESTIONS.length * 100) + "%";
+    var qt = el("qText"); qt.textContent = q.t;
+    qt.classList.remove("fade-enter"); void qt.offsetWidth; qt.classList.add("fade-enter");
+
+    var box = el("qOptions"); box.innerHTML = "";
+    q.o.forEach(function (text, idx) {
+      var b = document.createElement("button");
+      b.className = "opt"; b.type = "button";
+      b.setAttribute("aria-pressed", state.answers[state.i] === idx ? "true" : "false");
+      b.innerHTML = '<span class="lt">' + LETTERS[idx] + ')</span><span class="ot"></span>';
+      b.querySelector(".ot").textContent = text;
+      b.addEventListener("click", function () { select(idx); });
+      box.appendChild(b);
+    });
+    el("backBtn").style.visibility = state.i === 0 ? "hidden" : "visible";
+    var next = el("nextBtn");
+    next.disabled = state.answers[state.i] === null;
+    next.textContent = state.i === QUESTIONS.length - 1 ? "See my result" : "Next";
+  }
+
+  function select(idx) {
+    state.answers[state.i] = idx;
+    var opts = el("qOptions").children;
+    for (var k = 0; k < opts.length; k++) opts[k].setAttribute("aria-pressed", k === idx ? "true" : "false");
+    el("nextBtn").disabled = false;
+  }
+  function next() { if (state.answers[state.i] === null) return; if (state.i < QUESTIONS.length - 1) { state.i++; renderQuestion(); } else { finish(); } }
+  function back() { if (state.i > 0) { state.i--; renderQuestion(); } }
+  function tally() { var c = [0,0,0,0]; state.answers.forEach(function (a) { if (a !== null) c[a]++; }); return c; }
+
+  function finish() {
+    var counts = tally();
+    var total = counts.reduce(function (s, n) { return s + n; }, 0) || 1;
+    var max = Math.max.apply(null, counts);
+    var leaders = []; counts.forEach(function (n, idx) { if (n === max) leaders.push(idx); });
+
+    if (leaders.length === 1) {
+      var s = STYLES[leaders[0]];
+      el("domTag").textContent = leaders[0] === OWN ? "Your strongest instinct" : "Your most frequent instinct";
+      el("domName").textContent = s.key + ") " + s.name;
+      el("domDesc").textContent = s.desc;
+      el("dominantBox").style.borderLeftColor = s.color;
+    } else {
+      var names = leaders.map(function (idx) { return STYLES[idx].key + ") " + STYLES[idx].name; });
+      el("domTag").textContent = "A mixed profile";
+      el("domName").textContent = names.join("  ·  ");
+      el("domDesc").textContent = "Your answers split almost evenly across these instincts — how you respond depends heavily on the situation. That flexibility is useful; the question for the workshop is whether it's a deliberate read of each moment or a reflex.";
+      el("dominantBox").style.borderLeftColor = STYLES[leaders[0]].color;
+    }
+
+    el("ownLine").textContent = "You reached for the ownership response on " + counts[OWN] + " of 30 situations.";
+
+    var spec = el("spectrum"); spec.innerHTML = "";
+    counts.forEach(function (n, idx) {
+      var seg = document.createElement("span");
+      seg.style.background = COLORS[idx];
+      seg.textContent = n > 0 ? STYLES[idx].key : "";
+      spec.appendChild(seg);
+      requestAnimationFrame(function () { setTimeout(function () { seg.style.width = (n / total * 100) + "%"; }, 60); });
+    });
+
+    var order = counts.map(function (n, idx) { return { n: n, idx: idx }; }).sort(function (x, y) { return y.n - x.n; });
+    var bd = el("breakdown"); bd.innerHTML = "";
+    order.forEach(function (row) {
+      var s = STYLES[row.idx];
+      var wrap = document.createElement("div"); wrap.className = "brow";
+      wrap.innerHTML =
+        '<div class="chip" style="background:' + s.color + '">' + s.key + '</div>' +
+        '<div class="who"><div class="n">' + s.name + '</div><div class="d">' + s.short + '</div>' +
+        '<div class="bar"><i style="background:' + s.color + '"></i></div></div>' +
+        '<div class="count">' + row.n + '<small>/30</small></div>';
+      bd.appendChild(wrap);
+      var fill = wrap.querySelector(".bar > i");
+      requestAnimationFrame(function () { setTimeout(function () { fill.style.width = (row.n / total * 100) + "%"; }, 60); });
+    });
+    show(result);
+  }
+
+  function resultText() {
+    var counts = tally();
+    var max = Math.max.apply(null, counts);
+    var leaders = STYLES.filter(function (s, idx) { return counts[idx] === max; }).map(function (s) { return s.name; });
+    var line = STYLES.map(function (s, idx) { return s.key + ") " + s.name + ": " + counts[idx]; }).join("   ");
+    return "Accountability Self-Check — my result\n" + line +
+      "\nOwnership responses (C): " + counts[OWN] + " of 30\nMost frequent instinct: " + leaders.join(" & ");
+  }
+
+  el("startBtn").addEventListener("click", function () { show(quiz); renderQuestion(); });
+  el("nextBtn").addEventListener("click", next);
+  el("backBtn").addEventListener("click", back);
+  el("restartBtn").addEventListener("click", function () { state.i = 0; state.answers = new Array(QUESTIONS.length).fill(null); show(intro); });
+  el("copyBtn").addEventListener("click", function () {
+    var txt = resultText();
+    var done = function () { var c = el("copied"); c.classList.add("show"); setTimeout(function () { c.classList.remove("show"); }, 2200); };
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(done, done); }
+    else { var ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  document.addEventListener("keydown", function (e) {
+    if (quiz.hidden) return;
+    if (e.key >= "1" && e.key <= "4") { var idx = parseInt(e.key, 10) - 1; if (idx < QUESTIONS[state.i].o.length) { select(idx); e.preventDefault(); } }
+    else if (e.key === "Enter") { if (!el("nextBtn").disabled) { next(); e.preventDefault(); } }
+    else if (e.key === "Backspace" || e.key === "ArrowLeft") { if (state.i > 0) { back(); e.preventDefault(); } }
+  });
+})();
+</script>
+</body>
+</html>
